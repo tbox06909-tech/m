@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SipPod Garden el Café | Digital Menu</title>
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap)" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c1810;
+            --secondary: #8b4513;
+            --accent: #d4a574;
+            --cream: #faf6f1;
+            --light-brown: #e8ddd4;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #3d2317 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='[w3.org](http://www.w3.org/2000/svg)'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .logo {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .logo .tagline {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .coffee-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Section Styles */
+        .menu-section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-brown);
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .section-header h2 .emoji {
+            font-size: 1.8rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: var(--accent);
+        }
+
+        .item-details {
+            flex: 1;
+            padding-right: 15px;
+        }
+
+        .item-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .item-description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--secondary);
+            white-space: nowrap;
+            background: var(--light-brown);
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+
+        /* Special styling for different sections */
+        #coffee .menu-item {
+            border-left: 4px solid #8b4513;
+        }
+
+        #non-coffee .menu-item {
+            border-left: 4px solid #4CAF50;
+        }
+
+        #frappes .menu-item {
+            border-left: 4px solid #2196F3;
+        }
+
+        #pastries .menu-item {
+            border-left: 4px solid #FF9800;
+        }
+
+        #meals .menu-item {
+            border-left: 4px solid #9C27B0;
+        }
+
+        #snacks .menu-item {
+            border-left: 4px solid #f44336;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+
+        .social-icons span {
+            margin: 0 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-icons span:hover {
+            transform: scale(1.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2rem;
+            }
+
+            .logo .tagline {
+                font-size: 0.9rem;
+            }
+
+            nav ul {
+                gap: 5px;
+            }
+
+            nav a {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .menu-item {
+                padding: 20px;
+            }
+
+            .item-price {
+                font-size: 1.1rem;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Decorative Elements */
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .divider span {
+            display: inline-block;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        .divider .bean {
+            color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="coffee-icon">☕</div>
+            <h1>SipPod Garden el Café</h1>
+            <p class="tagline">Where Every Sip Feels Like Home</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#coffee">☕ Coffee</a></li>
+            <li><a href="#non-coffee">🧃 Non-Coffee</a></li>
+            <li><a href="#frappes">❄️ Frappes</a></li>
+            <li><a href="#pastries">🥐 Pastries</a></li>
+            <li><a href="#meals">🥗 Light Meals</a></li>
+            <li><a href="#snacks">🍟 Snacks</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- COFFEE SECTION -->
+        <section id="coffee" class="menu-section">
+            <div class="section-header">
+                <h2><span class="emoji">☕</span> COFFEE</h2>
+                <p>Made with freshly ground premium beans</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Espresso</div>
+                        <div class="item-description">Pure, bold, and rich concentrated coffee shot</div>
+                    </div>
+                    <div class="item-price">₱ 150</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Americano</div>
+                        <div class="item-description">Smooth espresso blended with hot water</div>
+                    </div>
+                    <div class="item-price">₱ 170</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Cappuccino</div>
+                        <div class="item-description">Equal parts espresso, steamed milk, and silky foam</div>
+                    </div>
+                    <div class="item-price">₱ 190</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Latte</div>
+                        <div class="item-description">Creamy espresso with plenty of steamed milk</div>
+                    </div>
+                    <div class="item-price">₱ 190</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Caramel Macchiato</div>
+                        <div class="item-description">Vanilla-infused milk marked with espresso and caramel drizzle</div>
+                    </div>
+                    <div class="item-price">₱ 200</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Mocha</div>
+                        <div class="item-description">Coffee + chocolate + steamed milk, topped with whipped cream</div>
+                    </div>
+                    <div class="item-price">₱ 200</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Flat White</div>
+                        <div class="item-description">Strong espresso with velvety microfoam</div>
+                    </div>
+                    <div class="item-price">₱ 200</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Spanish Latte</div>
+                        <div class="item-description">Sweetened condensed milk + espresso + steamed milk</div>
+                    </div>
+                    <div class="item-price">₱ 210</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NON-COFFEE SECTION -->
+        <section id="non-coffee" class="menu-section">
+            <div class="section-header">
+                <h2><span class="emoji">🧃</span> NON-COFFEE</h2>
+                <p>Refreshing, caffeine-free options</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Iced Lemonade</div>
+                        <div class="item-description">Freshly squeezed lemon, sweetened just right</div>
+                    </div>
+                    <div class="item-price">₱ 180</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Honey Ginger Tea</div>
+                        <div class="item-description">Warm or iced – soothing, spicy, and sweet</div>
+                    </div>
+                    <div class="item-price">₱ 209</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Peach Iced Tea</div>
+                        <div class="item-description">Sweet black tea with real peach puree</div>
+                    </div>
+                    <div class="item-price">₱ 180</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Mango Shake</div>
+                        <div class="item-description">Creamy, thick, and made with ripe mangoes</div>
+                    </div>
+                    <div class="item-price">₱ 230</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Watermelon Cooler</div>
+                        <div class="item-description">Fresh watermelon juice with mint and lime</div>
+                    </div>
+                    <div class="item-price">₱ 180</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Hot Chocolate</div>
+                        <div class="item-description">Rich, creamy, and topped with marshmallows</div>
+                    </div>
+                    <div class="item-price">₱ 170</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Blue Lemonade</div>
+                        <div class="item-description">Bright, sweet, and citrusy fun drink</div>
+                    </div>
+                    <div class="item-price">₱ 160</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FRAPPES SECTION -->
+        <section id="frappes" class="menu-section">
+            <div class="section-header">
+                <h2><span class="emoji">❄️</span> FRAPPES / BLENDED</h2>
+                <p>Creamy, icy, and indulgent</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Classic Coffee Frappe</div>
+                        <div class="item-description">Blended coffee, milk, ice, whipped cream</div>
+                    </div>
+                    <div class="item-price">₱ 240</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Caramel Frappe</div>
+                        <div class="item-description">Sweet caramel + coffee + cream + drizzle</div>
+                    </div>
+                    <div class="item-price">₱ 230</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Mocha Frappe</div>
+                        <div class="item-description">Chocolate + coffee blend, extra creamy</div>
+                    </div>
+                    <div class="item-price">₱ 230</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Vanilla Bean Frappe</div>
+                        <div class="item-description">No coffee – sweet, smooth vanilla goodness</div>
+                    </div>
+                    <div class="item-price">₱ 210</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Strawberry Cream Frappe</div>
+                        <div class="item-description">Real strawberries blended with milk and ice</div>
+                    </div>
+                    <div class="item-price">₱ 280</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Matcha Green Tea Frappe</div>
+                        <div class="item-description">Premium matcha, milk, and sweetener</div>
+                    </div>
+                    <div class="item-price">₱ 290</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Oreo Cookies & Cream Frappe</div>
+                        <div class="item-description">Crushed cookies + creamy blend + chocolate sauce</div>
+                    </div>
+                    <div class="item-price">₱ 280</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASTRIES SECTION -->
+        <section id="pastries" class="menu-section">
+            <div class="section-header">
+                <h2><span class="emoji">🥐</span> PASTRIES & BAKES</h2>
+                <p>Freshly baked daily</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Butter Croissant</div>
+                        <div class="item-description">Flaky, buttery, golden classic</div>
+                    </div>
+                    <div class="item-price">₱ 200</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Chocolate Croissant</div>
+                        <div class="item-description">Filled with rich chocolate inside</div>
+                    </div>
+                    <div class="item-price">₱ 210</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Cinnamon Roll</div>
+                        <div class="item-description">Soft, sweet, with cream cheese glaze</div>
+                    </div>
+                    <div class="item-price">₱ 190</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Blueberry Muffin</div>
+                        <div class="item-description">Moist muffin bursting with berries</div>
+                    </div>
+                    <div class="item-price">₱ 150</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Chocolate Chip Cookie</div>
+                        <div class="item-description">Big, soft, and loaded with chips</div>
+                    </div>
+                    <div class="item-price">₱ 100</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Banana Bread Slice</div>
+                        <div class="item-description">Moist, sweet, with walnuts</div>
+                    </div>
+                    <div class="item-price">₱ 135</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Cheesecake Slice</div>
+                        <div class="item-description">Creamy New York style with berry topping</div>
+                    </div>
+                    <div class="item-price">₱ 210</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIGHT MEALS SECTION -->
+        <section id="meals" class="menu-section">
+            <div class="section-header">
+                <h2><span class="emoji">🥗</span> LIGHT MEALS</h2>
+                <p>Perfect portions – fresh and satisfying</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Tuna Sandwich</div>
+                        <div class="item-description">Flaked tuna, mayo, lettuce, tomato on soft bread</div>
+                    </div>
+                    <div class="item-price">₱ 290</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Chicken Pesto Pasta</div>
+                        <div class="item-description">Pasta tossed in basil pesto + grilled chicken</div>
+                    </div>
+                    <div class="item-price">₱ 300</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Creamy Carbonara</div>
+                        <div class="item-description">Rich sauce, bacon, parmesan, and black pepper</div>
+                    </div>
+                    <div class="item-price">₱ 280</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Grilled Chicken Salad</div>
+                        <div class="item-description">Fresh greens, veggies, tender chicken + vinaigrette</div>
+                    </div>
+                    <div class="item-price">₱ 320</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Veggie Wrap</div>
+                        <div class="item-description">Fresh vegetables, cheese, and dressing in soft tortilla</div>
+                    </div>
+                    <div class="item-price">₱ 290</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Clubhouse Sandwich</div>
+                        <div class="item-description">Chicken, egg, bacon, lettuce, tomato + fries</div>
+                    </div>
+                    <div class="item-price">₱ 200</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Pesto Chicken Sandwich</div>
+                        <div class="item-description">Grilled chicken, pesto spread, fresh veggies</div>
+                    </div>
+                    <div class="item-price">₱ 310</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SNACKS SECTION -->
+        <section id="snacks" class="menu-section">
+            <div class="section-header">
+                <h2><span class="emoji">🍟</span> SNACKS & SMALL BITES</h2>
+                <p>Great for sharing or side orders</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">French Fries</div>
+                        <div class="item-description">Crispy golden fries + ketchup or mayo dip</div>
+                    </div>
+                    <div class="item-price">₱ 120</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Nachos Overload</div>
+                        <div class="item-description">Chips loaded with cheese sauce, ground meat, salsa, jalapeños</div>
+                    </div>
+                    <div class="item-price">₱ 180</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Mozzarella Sticks (4pcs)</div>
+                        <div class="item-description">Golden fried, cheesy inside + marinara dip</div>
+                    </div>
+                    <div class="item-price">₱ 160</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Onion Rings</div>
+                        <div class="item-description">Crispy battered rings + sweet chili dip</div>
+                    </div>
+                    <div class="item-price">₱ 110</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Chicken Nuggets (6pcs)</div>
+                        <div class="item-description">Tender bites + barbecue or mayo dip</div>
+                    </div>
+                    <div class="item-price">₱ 180</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Potato Wedges</div>
+                        <div class="item-description">Seasoned skin-on wedges + sour cream</div>
+                    </div>
+                    <div class="item-price">₱ 130</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-details">
+                        <div class="item-name">Garlic Bread (4pcs)</div>
+                        <div class="item-description">Toasted bread with garlic butter & herbs</div>
+                    </div>
+                    <div class="item-price">₱ 120</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h3>☕ SipPod Garden el Café</h3>
+        <p>Where Every Sip Feels Like Home</p>
+        <p>Open Daily: 7:00 AM – 10:00 PM</p>
+        <div class="social-icons">
+            <span>📍</span>
+            <span>📞</span>
+            <span>📧</span>
+            <span>📱</span>
+        </div>
+        <p style="margin-top: 20px; opacity: 0.6; font-size: 0.8rem;">© 2025 SipPod Garden el Café. All rights reserved.</p>
+    </footer>
+</body>
+</html>
